@@ -1,0 +1,10 @@
+[project]
+name = "ai-agents"
+version = "0.1.0"
+description = "A simple Ai agent that uses google gemini 2.5 flash"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "google-genai==1.12.1",
+    "python-dotenv==1.1.0",
+]
