@@ -1,4 +1,4 @@
-import os
+    import os
 import sys
 
 from dotenv import load_dotenv
@@ -29,6 +29,7 @@ def main():
     if len(sys.argv) > 2:
         if sys.argv[2] == "--verbose":
             verbose = True
+
     messages = [types.Content(role="user", parts=[types.Part(text=prompt)])]
     response = types.GenerateContentResponse()
     for _ in range(20):
@@ -67,6 +68,7 @@ def main():
             print(f"user prompt: {prompt}")
             print(f"prompt tokens: {response.usage_metadata.prompt_token_count}")
             print(f"response tokens: {response.usage_metadata.candidates_token_count}")
+    print(messages)
 
 
 main()
