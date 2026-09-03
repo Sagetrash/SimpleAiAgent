@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-from config import MODEL, SYSTEM_PROMPT
-from functions.function_map import callFunction
-from functions.schemas import avail_functions
+from backend.config import MODEL, SYSTEM_PROMPT
+from backend.functions.function_map import callFunction
+from backend.functions.schemas import avail_functions
 
 
 def main():

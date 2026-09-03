@@ -1,9 +1,9 @@
 from google.genai import types
 
-from functions.get_file_content import getFileContent
-from functions.get_files_info import getFilesInfo
-from functions.run_python_file import run_python_file
-from functions.write_file import writeToFile
+from backend.functions.get_file_content import getFileContent
+from backend.functions.get_files_info import getFilesInfo
+from backend.functions.run_python_file import run_python_file
+from backend.functions.write_file import writeToFile
 
 function_map = {
     "getFileContent": getFileContent,

@@ -1,4 +1,4 @@
-from functions.write_file import writeToFile
+from backend.functions.write_file import writeToFile
 
 print(writeToFile("calculator", "lorem.txt", "wait, this isn't lorem ipsum"))
 print(writeToFile("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet"))

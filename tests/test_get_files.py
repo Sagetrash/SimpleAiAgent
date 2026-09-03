@@ -1,4 +1,4 @@
-from functions.get_files_info import getFilesInfo
+from backend.functions.get_files_info import getFilesInfo
 
 print(getFilesInfo("calculator", "."))
 print(getFilesInfo("calculator", "pkg"))

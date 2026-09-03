@@ -5,6 +5,8 @@ description = "A simple Ai agent that uses google gemini 2.5 flash"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "fastapi>=0.141.1",
     "google-genai==1.12.1",
     "python-dotenv==1.1.0",
+    "uvicorn[standard]>=0.52.4",
 ]
