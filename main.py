@@ -1,4 +1,4 @@
-    import os
+import os
 import sys
 
 from dotenv import load_dotenv
@@ -26,9 +26,8 @@ def main():
     else:
         prompt = sys.argv[1]
     verbose = False
-    if len(sys.argv) > 2:
-        if sys.argv[2] == "--verbose":
-            verbose = True
+    if len(sys.argv) > 2 and sys.argv[2] == "--verbose":
+        verbose = True
 
     messages = [types.Content(role="user", parts=[types.Part(text=prompt)])]
     response = types.GenerateContentResponse()
