@@ -19,6 +19,56 @@ export default function Timeline({ events, isStreaming, onSubmitPrompt }) {
         <h2 className="text-xs uppercase tracking-wider text-(--claude-muted)">
           Agent Activity Feed
         </h2>
+
+        {events.length === 0 ? (
+          <div className="text-center text-sm text-(--claude-muted) py-12">
+            No activity yet, type a message below to get started!
+          </div>
+        ) : (
+            events.map((event, index) => {
+              if (event.type === 'user_prompt') {
+                return (
+                  <div key={index} className="flex gap-3 items-start justify-end">
+                    <div className="bg-(--claude-card) border border-(--claude-border) rounded-lg p-3 max-w-[80%] text-sm text-(--claude-text)">
+                      {event.content}
+                    </div>
+                    <div className="p-1.5 bg-(--claude-accent) text-white rounded-full">
+                      <User className="w-4 h-4" />
+                    </div>
+                  </div>
+                )
+              } 
+              
+              if (event.type === 'agent_response') {
+                return (
+                  <div key={index} className="flex gap-3 items-start">
+                    <div className="p-1.5 bg-[#2e2e3e] text-(--claude-accent) rounded-full">
+                      <Bot className="w-4 h-4" />
+                    </div>
+                    <div className="bg-(--claude-panel) border border-(--claude-border) rounded-lg p-4 max-w-[85%] text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">
+                      {event.content}
+                    </div>
+                  </div>
+                );
+              }
+
+              if (event.type === "tool_call") {
+                return (
+                  <div key={index} className="flex gap-3 items-start my-2">
+                    <div className="p-1.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full mt-0.5">
+                      <Wrench className="w-4 h-4" />
+                    </div>
+                    <div className="bg-[#1a1a1e] border border-(--claude-border) rounded-lg px-3 py-2 text-xs font-mono text-amber-400">
+                      Executed tool: <span className="font-semibold">{event.name}</span>
+                    </div>
+                  </div>
+                )
+              }
+              return null
+            }
+            )
+        )
+        }
       </div>
 
       {/* Input form */}
