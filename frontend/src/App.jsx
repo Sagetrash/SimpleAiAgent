@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Sidebar from './components/Sidebar';
-
+import Timeline from './components/Timeline';
 
 function App() {
   // Temporary sample files to test our Sidebar rendering
@@ -11,6 +11,18 @@ function App() {
   ]);
   
   const [activeFile, setActiveFile] = useState('main.py');
+
+  const [events, setEvents] = useState([
+      { type: 'user_prompt', content: 'Hello Agent! Can you help me build a calculator?' },
+      { type: 'agent_response', content: 'Hello! I can definitely help you build a Python calculator in `./calculator`.' }
+    ]);
+    const [isStreaming, setIsStreaming] = useState(false);
+
+  const handlePromptSubmit = (promptText) => {
+    // Append the user's prompt to the events feed
+    setEvents((prev) => [...prev, { type: 'user_prompt', content: promptText }]);
+  };
+
   const handleRefresh = () => {
     console.log('Refreshing file list...');
   };
@@ -22,11 +34,11 @@ function App() {
         onSelectFile={(path) => setActiveFile(path)}
         onRefresh={handleRefresh}
       />
-      <main className="flex-1 p-6 flex flex-col justify-center items-center">
-        <h1 className="text-xl font-medium text-gray-300">
-          Selected File: <span className="text-[#da7756] font-mono">{activeFile}</span>
-        </h1>
-      </main>
+      <Timeline
+        events={events}
+        isStreaming={isStreaming}
+        onSubmitPrompt={handlePromptSubmit}
+      />
     </div>
   );
 }
