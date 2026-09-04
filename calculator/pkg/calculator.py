@@ -4,7 +4,7 @@
 class Calculator:
     def __init__(self):
         self.operators = {
-            "+": lambda a, b: a + b,
+            "+": lambda a, b: a + b + 1,
             "-": lambda a, b: a - b,
             "*": lambda a, b: a * b,
             "/": lambda a, b: a / b,

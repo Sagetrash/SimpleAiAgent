@@ -29,7 +29,15 @@ class PromptModel(BaseModel):
 async def agent_stream(modelInput:PromptModel)-> StreamingResponse:
     if not modelInput.prompt.strip():
         raise HTTPException(status_code=400)
-    return StreamingResponse(run_agent_stream(modelInput.prompt),media_type="text/event_stream")
+    return StreamingResponse(
+        run_agent_stream(modelInput.prompt),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        }
+    )
 
 @app.get('/api/sandbox/files')
 async def fetch_sandbox_files()->dict:

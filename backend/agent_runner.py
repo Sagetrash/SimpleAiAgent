@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 
@@ -17,8 +18,10 @@ async def run_agent_stream(prompt:str):
     system_prompt = SYSTEM_PROMPT
     client = genai.Client(api_key=api_key)
     messages = [types.Content(role="user",parts=[types.Part(text=prompt)])]
+    # Send 2KB padding comment to immediately flush browser & proxy stream buffers
+    yield f": {' ' * 2048}\n\n"
     yield f"data: {json.dumps({'type':'start','prompt':prompt})}\n\n"
-
+    await asyncio.sleep(0.1)
     for _ in range(20):
         response = client.models.generate_content(
             model=model,
@@ -36,11 +39,14 @@ async def run_agent_stream(prompt:str):
                 func_name = call.name or ""
                 func_args = dict(call.args) if call.args else {}
                 yield f"data: {json.dumps({'type':'tool_call','name':func_name,'args':func_args})}\n\n"
+                await asyncio.sleep(0.1)
                 call_result = callFunction(call)
                 res_payload = (
                     call_result.parts[0].function_response.response if (call_result.parts and call_result.parts[0].function_response) else {}
                 )
-                yield f"data:{json.dumps({'type':'tool_result','name':func_name,'result':res_payload})}\n\n"
+                yield f"data: {json.dumps({'type':'tool_result','name':func_name,'result':res_payload})}\n\n"
+                await asyncio.sleep(0.1)
+                
                 if call_result.parts:
                     function_call_results.append(call_result.parts[0])
             messages.append(types.Content(role="user",parts=function_call_results))
@@ -49,7 +55,9 @@ async def run_agent_stream(prompt:str):
             if response.usage_metadata:
                 usage['prompt_tokens'] = response.usage_metadata.prompt_token_count
                 usage['candidate_tokens'] = response.usage_metadata.candidates_token_count
-            yield f"data:{json.dumps({'type':'agent_response', 'content':response.text, 'usage':usage})}\n\n"
+            yield f"data: {json.dumps({'type':'agent_response', 'content':response.text, 'usage':usage})}\n\n"
+            await asyncio.sleep(0.1)
+            
             break
-    yield f"data:{json.dumps({'type':'end'})}\n\n"
+    yield f"data: {json.dumps({'type':'end'})}\n\n"
     

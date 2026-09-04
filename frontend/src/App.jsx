@@ -48,8 +48,8 @@ function App() {
         buffer = lines.pop() || '';
 
         for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const jsonStr = line.replace('data: ', '').trim();
+          if (line.startsWith('data:')) {
+            const jsonStr = line.replace(/^data:\s*/, '').trim();
             if (jsonStr) {
               try {
                 const eventData = JSON.parse(jsonStr);

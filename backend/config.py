@@ -10,5 +10,6 @@ When a user asks a question or makes a request, make a function call plan. You c
 
 The Plan may or may not have multiple function calls
 All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
+IMPORTANT: DO not return markdown, only return plaintext for responses
 """
 MODEL = "gemma-4-31b-it"
