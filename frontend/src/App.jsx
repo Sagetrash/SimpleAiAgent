@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sidebar from './components/sidebar';
+import Sidebar from './components/Sidebar';
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
     console.log('Refreshing file list...');
   };
   return (
-    <div className="flex h-screen w-screen bg-[var(--claude-bg)] text-gray-100 overflow-hidden font-sans">
+    <div className="flex h-screen w-screen bg-(--claude-bg) text-gray-100 overflow-hidden font-sans">
       <Sidebar
         files={files}
         activeFilePath={activeFile}
