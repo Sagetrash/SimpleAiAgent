@@ -67,7 +67,7 @@ def main():
             print(f"user prompt: {prompt}")
             print(f"prompt tokens: {response.usage_metadata.prompt_token_count}")
             print(f"response tokens: {response.usage_metadata.candidates_token_count}")
-    print(messages)
+    # print(messages)
 
 
 main()
