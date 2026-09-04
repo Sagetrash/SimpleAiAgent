@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { User, Bot, Send, Wrench } from 'lucide-react';
+import { User, Bot, Send, Wrench, Loader2 } from 'lucide-react';
 
 export default function Timeline({ events, isStreaming, onSubmitPrompt }) {
   const [input, setInput] = useState('');
@@ -70,7 +70,13 @@ export default function Timeline({ events, isStreaming, onSubmitPrompt }) {
         )
         }
       </div>
-
+      {/* Animated Working Indicator when Agent is processing */}
+      {isStreaming && (
+        <div className="flex gap-3 items-center text-xs text-(--claude-accent) bg-[#1a1a1e] border border-(--claude-border) rounded-lg px-4 py-3 w-fit animate-pulse">
+          <Loader2 className="w-4 h-4 animate-spin text-(--claude-accent)" />
+          <span className="font-medium">Agent is thinking & executing tools...</span>
+        </div>
+      )}
       {/* Input form */}
       <form onSubmit={handleSubmit} className="p-4 border-t border-(--claude-border) bg-(--claude-panel)">
         <div className="flex items-center gap-2 bg-(--claude-card) border border-(--claude-border) rounded-lg px-3 py-2">

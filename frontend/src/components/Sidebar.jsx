@@ -1,5 +1,5 @@
 import React from "react";
-import { Folder, FileCode, FileText, RefreshCw } from 'lucide-react';
+import { Folder, FileCode, FileText, RefreshCw, Github, FileUser } from 'lucide-react';
 
 export default function Sidebar({ files, activeFilePath, onSelectFile, onRefresh }) {
   const getFileIcon = (file) => {
@@ -18,13 +18,33 @@ export default function Sidebar({ files, activeFilePath, onSelectFile, onRefresh
             workspace
           </span>
         </div>
-        <button
-          onClick={onRefresh}
-          className="p-1 hover:bg-(--claude-border) rounded text-gray-400 hover:text-gray-200 transition-colors"
-          title="Refresh files"
-        >
-          <RefreshCw className="w-3.5 h-3.5"/>
-        </button>
+        <div className="flex items-center gap-1">
+          <a
+            href="https://ayushsharma.is-a.dev"
+            target="_blank"
+            rel="noreferrer"
+            className="p-1 hover:bg-(--claude-border) rounded text-gray-400 hover:text-(--claude-accent) transition-colors"
+            title="Ayush Sharma — Portfolio & Resume"
+          >
+            <FileUser className="w-3.5 h-3.5" />
+          </a>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noreferrer"
+            className="p-1 hover:bg-(--claude-border) rounded text-gray-400 hover:text-gray-200 transition-colors"
+            title="View GitHub Repository"
+          >
+            <Github className="w-3.5 h-3.5" />
+          </a>
+          <button
+            onClick={onRefresh}
+            className="p-1 hover:bg-(--claude-border) rounded text-gray-400 hover:text-gray-200 transition-colors"
+            title="Refresh files"
+          >
+            <RefreshCw className="w-3.5 h-3.5"/>
+          </button>
+        </div>
       </div>
 
       {/*File List */}
